@@ -4,7 +4,6 @@ cl=client
 cl.connect()
 
 d=list()
-
 def gc():
     global  cl
     global d
@@ -15,7 +14,7 @@ def gc():
 
 def sa():
     global  d
-    pickle.dump(d, open('../caminfo_s006_high.pkl', 'wb'))
+    pickle.dump(d, open('../caminfo_s004_high.pkl', 'wb'))
 
 from IPython import embed
 embed()

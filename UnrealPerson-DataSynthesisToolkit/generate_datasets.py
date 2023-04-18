@@ -6,6 +6,7 @@ import time
 import pickle,random
 from tqdm import trange
 import argparse
+from setting import path
 # TODO: replace this with a better implementation
 class Color(object):
     ''' A utility class to parse color value '''
@@ -123,9 +124,10 @@ class DataUtils(object):
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scene",type=str,choices=['s001','s002','s003','s004'])
-    parser.add_argument("--person",type=int)
-    parser.add_argument("--images",type=int) #images per camera
+    # parser.add_argument("--scene",type=str,choices=['s001','s002','s003','s004'])
+    parser.add_argument("--scene",type=str,choices=['s004'],default='s004')
+    parser.add_argument("--person",type=int,default=10)
+    parser.add_argument("--images",type=int,default=2) #images per camera
 
     opt = parser.parse_args()
 
@@ -141,6 +143,7 @@ if __name__=="__main__":
         import os,glob
         datautils = DataUtils(client, "")
         cam_info = glob.glob('caminfo_'+opt.scene+"*.pkl")
+        print(cam_info)
         cam_lr = []
         for cam_info_file in cam_info:
             cam_lr.extend(pickle.load(open(cam_info_file, 'rb')))
@@ -150,7 +153,7 @@ if __name__=="__main__":
         batch = opt.person // person_per_batch[opt.scene] + 1
         print(cam_lr)
         for _ in range(batch):
-            datautils.dir_save = "f:/video/tmp"+str(int(time.time()))+"/"
+            datautils.dir_save = path+"tmp"+str(int(time.time()))+"/"
             os.mkdir(datautils.dir_save)
             datautils.client.request("vrun ce DelActor")
             datautils.client.request("vrun ce AddActor")

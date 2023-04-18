@@ -157,6 +157,7 @@ class DataUtils(object):
             except AttributeError or SystemError as e:
                 continue
         print("Generate {} images.".format(count))
+        
 
 
 
@@ -165,6 +166,7 @@ if __name__=="__main__":
     try:
         import os,tqdm,glob
         import argparse
+        from setting import *
         parser= argparse.ArgumentParser()
         parser.add_argument("--path",type=str)
 
@@ -173,12 +175,12 @@ if __name__=="__main__":
         args=parser.parse_args()
 
         print(args.path)
-        dir_saves = [i + '\\' for i in glob.glob("f:\\datasets\\tmp*")]
+        dir_saves = [i + '\\' for i in glob.glob(f"{path}\\tmp*")]
         time.sleep(1)
         #dir_saves=[args.path]
 
-        dir_data = "F:\\datasets\\unreal_indoor_high\\images\\"
-        dir_data_mask = "F:\\datasets\\unreal_indoor_high\\annos\\"
+        dir_data = f"{path}\\unreal_indoor_high\\images\\"
+        dir_data_mask = f"{path}\\unreal_indoor_high\\annos\\"
         if not os.path.exists(dir_data):
             os.makedirs(dir_data)
         if not os.path.exists(dir_data_mask):
